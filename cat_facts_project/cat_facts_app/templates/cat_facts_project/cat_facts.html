@@ -1,0 +1,33 @@
+<!-- cat_facts.html -->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Cat Facts</title>
+</head>
+<body>
+    <h1>Random Cat Facts</h1>
+    <button id="fact-button">Get Fact</button>
+    <p id="fact-text"></p>
+
+    <script>
+        const factButton = document.getElementById('fact-button');
+        const factText = document.getElementById('fact-text');
+
+        factButton.addEventListener('click', () => {
+            fetch('', {
+                method: 'POST',
+                headers: {
+                    'X-CSRFToken': '{{ csrf_token }}'
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                factText.textContent = data.fact;
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+        });
+    </script>
+</body>
+</html>
